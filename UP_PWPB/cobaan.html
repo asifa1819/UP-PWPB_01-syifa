@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kost Sederhana - Rumah Kos Murah</title>
+    <link rel="stylesheet" href="stylee.css">
+    <style>
+        /* CSS asli Anda */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+        .fasilitas {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .fasilitas div {
+            text-align: center;
+            margin: 10px;
+        }
+        .harga-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .kamar-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .kamar-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .kamar-card .harga {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .kategori-tombol {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .kategori-tombol button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .kategori-tombol button:hover {
+            background-color: #45a049;
+        }
+        .kategori-tombol button.active {
+            background-color: #388E3C; /* Warna aktif */
+        }
+        .kategori {
+            display: block; /* Default tampil semua */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #pembayaran-detail {
+            display: none; /* Tersembunyi secara default */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f5e8;
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+        }
+        #pembayaran-detail h3 {
+            color: #4CAF50;
+        }
+
+        /* Tambahan CSS untuk formulir agar lebih rapi dan responsif */
+        #form-penyewaan {
+            display: none; /* Tersembunyi secara default */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px; /* Lebar maksimal untuk rapi */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .radio-group input {
+            width: auto;
+            margin: 0;
+        }
+        .radio-group label {
+            margin: 0;
+            font-weight: normal;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .form-buttons button {
+            flex: 1;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .form-buttons button:hover {
+            background-color: #45a049;
+        }
+        /* Responsivitas untuk form */
+        @media (max-width: 768px) {
+            .form-buttons {
+                flex-direction: column;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .harga-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .kamar-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Selamat Datang di Kost Sederhana</h1>
+        <p>Rumah kos murah dan nyaman di pusat kota.</p>
+    </header>
+    
+    <nav>
+        <a href="#home">Beranda</a>
+        <a href="#fasilitas">Fasilitas</a>
+        <a href="#harga">Harga</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+    
+    <section id="home">
+        <h2>Tentang Kost Kami</h2>
+        <p>Kost Sederhana menawarkan kamar kos dengan fasilitas lengkap, lokasi strategis, dan harga terjangkau. Cocok untuk mahasiswa atau pekerja.</p>
+        <img src="download (7).png" alt="Gambar Kost" style="width:100%; max-width:800px;">
+    </section>
+    
+    <section id="fasilitas">
+        <h2>Fasilitas</h2>
+        <div class="fasilitas">
+            <div>
+                <h3>WiFi Gratis</h3>
+                <p>Internet cepat 24/7.</p>
+            </div>
+            <div>
+                <h3>Kamar Mandi Dalam</h3>
+                <p>Setiap kamar memiliki kamar mandi pribadi.</p>
+            </div>
+            <div>
+                <h3>Dapur Bersama</h3>
+                <p>Fasilitas memasak untuk penghuni.</p>
+            </div>
+            <div>
+                <h3>Keamanan 24 Jam</h3>
+                <p>Penjaga dan CCTV untuk kenyamanan Anda.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="harga">
+        <h2>Kategori Kamar</h2>
+        
+        <!-- Tombol Kategori Sejajar -->
+        <div class="kategori-tombol">
+            <button onclick="filterKategori('semua')" class="active">Semua</button>
+            <button onclick="filterKategori('standar')">Standar</button>
+            <button onclick="filterKategori('premium')">Premium</button>
+            <button onclick="filterKategori('vip')">VIP</button>
+        </div>
+        
+        <!-- Kategori Standar -->
+        <div id="standar" class="kategori">
+            <h3>Kamar Standar (Murah & Sederhana)</h3>
+            <div class="harga-grid">
+                <div class="kamar-card">
+                    <img src="images/kos 1.jpg" alt="Kamar Standar 1">
+                    <h4>Kamar Standar 1</h4>
+                    <p>Kamar sederhana dengan fasilitas dasar seperti kasur dan lemari. Cocok untuk budget terbatas.</p>
+                    <p class="harga">Rp 450.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar Standar 1', 'Rp 450.000', 'Standar')">Booking</button>
+                </div>
+                <div class="kamar-card">
+                    <img src="images/kos 2.jpeg" alt="Kamar Standar 2">
+                    <h4>Kamar Standar 2</h4>
+                    <p>Kamar sederhana dengan ventilasi baik. Ideal untuk mahasiswa.</p>
+                    <p class="harga">Rp 500.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar Standar 2', 'Rp 500.000', 'Standar')">Booking</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kategori Premium -->
+        <div id="premium" class="kategori">
+            <h3>Kamar Premium (Menengah & Nyaman)</h3>
+            <div class="harga-grid">
+                <div class="kamar-card">
+                    <img src="images/kos 3.jpg" alt="Kamar Premium 1">
+                    <h4>Kamar Premium 1</h4>
+                    <p>Kamar luas dengan AC dan TV. Lebih nyaman untuk tinggal lama.</p>
+                    <p class="harga">Rp 700.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar Premium 1', 'Rp 700.000', 'Premium')">Booking</button>
+                </div>
+                <div class="kamar-card">
+                    <img src="images/kos 4.jpg" alt="Kamar Premium 2">
+                    <h4>Kamar Premium 2</h4>
+                    <p>Kamar dengan balkon dan WiFi cepat. Cocok untuk pekerja remote.</p>
+                    <p class="harga">Rp 750.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar Premium 2', 'Rp 750.000', 'Premium')">Booking</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kategori VIP -->
+        <div id="vip" class="kategori">
+            <h3>Kamar VIP (Mahal & Eksklusif)</h3>
+            <div class="harga-grid">
+                <div class="kamar-card">
+                    <img src="images/kos 5.webp" alt="Kamar VIP 1">
+                    <h4>Kamar VIP 1</h4>
+                    <p>Kamar mewah dengan balkon, dapur mini, dan AC. Paling eksklusif.</p>
+                    <p class="harga">Rp 1.000.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar VIP 1', 'Rp 1.000.000', 'VIP')">Booking</button>
+                </div>
+                <div class="kamar-card">
+                    <img src="images/kos 7.jpg" alt="Kamar VIP 2">
+                    <h4>Kamar VIP 2</h4>
+                    <p>Kamar suite dengan jacuzzi dan layanan laundry. Untuk yang mencari kemewahan.</p>
+                    <p class="harga">Rp 1.200.000/bulan</p>
+                    <button onclick="tampilkanFormPenyewaan('Kamar VIP 2', 'Rp 1.200.000', 'VIP')">Booking</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="form-penyewaan">
+            <h3>Formulir Penyewaan Kost - <span id="display-nama-kamar"></span></h3>
+            <form id="penyewaan-form">
+                <input type="hidden" id="hidden-nama-kamar" name="namaKamar">
+                <input type="hidden" id="hidden-harga-kamar" name="hargaKamar">
+                <input type="hidden" id="hidden-tipe-kamar-booking" name="tipeKamarBooking">
+
+                <div class="form-group">
+                    <label for="nama-lengkap">Nama Lengkap (Sesuai KTP/Identitas Resmi)*:</label>
+                    <input type="text" id="nama-lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomor-kontak">Nomor Kontak (Telepon/HP Aktif)*:</label>
+                    <input type="tel" id="nomor-kontak" pattern="[0-9]+" title="Hanya angka diperbolehkan" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Alamat Email (Untuk Konfirmasi)*:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Jenis Kelamin*:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="laki-laki" name="jenis-kelamin" value="Laki-laki" required>
+                        <label for="laki-laki">Laki-laki</label>
+                        <input type="radio" id="perempuan" name="jenis-kelamin" value="Perempuan">
+                        <label for="perempuan">Perempuan</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pekerjaan">Pekerjaan/Status*:</label>
+                    <select id="pekerjaan" required>
+                        <option value="">Pilih...</option>
+                        <option value="Mahasiswa">Mahasiswa</option>
+                        <option value="Karyawan">Karyawan</option>
+                        <option value="Umum">Umum</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="asal-kota">Asal Kota/Alamat Domisili Sekarang*:</label>
+                    <input type="text" id="asal-kota" required>
+                </div>
+                <div class="form-group">
+                    <label for="lokasi-kos">Pilihan Kos/Lokasi:</label>
+                    <select id="lokasi-kos">
+                        <option value="Lokasi 1">Lokasi 1 (Jl. Kost Sederhana No. 123)</option>
+                        <option value="Lokasi 2">Lokasi 2 (Jl. Kost Lain No. 456)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipe-kamar">Tipe Kamar yang Dipilih (Otomatis Terisi)*:</label>
+                    <input type="text" id="tipe-kamar" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal-masuk">Rencana Tanggal Masuk (Check-in)*:</label>
+                    <input type="date" id="tanggal-masuk" required>
+                </div>
+                <div class="form-group">
+                    <label for="lama-sewa">Rencana Lama Sewa*:</label>
+                    <select id="lama-sewa" required>
+                        <option value="">Pilih Durasi Sewa</option>
+                        <option value="Bulanan">Bulanan</option>
+                        <option value="3 Bulanan">3 Bulanan</option>
+                        <option value="6 Bulanan">6 Bulanan</option>
+                        <option value="Tahunan">Tahunan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal-keluar">Rencana Tanggal Keluar (Otomatis terisi jika Tahunan/Custom)*:</label>
+                    <input type="date" id="tanggal-keluar">
+                </div>
+                <div class="form-buttons">
+                    <button type="button" onclick="sembunyikanFormPenyewaan()">Batal</button>
+                    <button type="submit">Submit & Lanjut ke Pembayaran</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Bagian Detail Pembayaran -->
+        <div id="pembayaran-detail">
+            <h3>Detail Pembayaran untuk <span id="nama-kamar"></span></h3>
+            <p>Harga: <span id="harga-kamar"></span></p>
+            <p><strong>Metode Pembayaran:</strong></p>
+            <ul>
+                <li>Transfer Bank BCA: 123-456-7890 (a.n. Kost Sederhana)</li>
+                <li>Transfer Bank Mandiri: 098-765-4321 (a.n. Kost Sederhana)</li>
+                <li>E-Wallet: Dana/GoPay ke nomor 0812-3456-7890</li>
+            </ul>
+            <p><strong>Instruksi:</strong> Lakukan transfer sesuai harga di atas. Kirim bukti transfer ke WhatsApp 0812-3456-7890 atau email info@kostsederhana.com untuk konfirmasi booking. Kamar akan direservasi setelah pembayaran diterima.</p>
+            <button onclick="s
